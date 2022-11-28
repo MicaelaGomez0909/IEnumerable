@@ -1,0 +1,63 @@
+int []numeros = new int[10]{1,2,3,4,5,6,7,8,9,10};
+ IEnumerable <int> Pares= from num in numeros where num %2==0 select num;
+ Console.WriteLine("Numeros pares ");
+ foreach(int i in Pares){
+    Console.WriteLine(" "+ i);
+ }
+
+IEnumerable <int> ParOrdenado= from num in numeros orderby num descending where num %2 == 0 select num;
+ Console.WriteLine("Pares Ordenados");
+ foreach(int i in ParOrdenado){
+    Console.WriteLine(" "+ i);
+ }
+
+ List<persona> Listapersonas=new List<persona>();
+ Listapersonas.Add(new persona("Micaela",18,1));
+ Listapersonas.Add(new persona("Carlitos",19,1));
+ Listapersonas.Add(new persona("juan",12,2));
+
+ List <banco> ListaBancos= new List<banco>();
+ ListaBancos.Add(new banco("Galicia",1));
+ ListaBancos.Add(new banco("Nacion",2));
+  IEnumerable <persona> mayores=from edad in Listapersonas where edad.edad>=18 select edad;
+  Console.WriteLine("Personas mayores");
+  foreach(persona i in mayores){
+    Console.WriteLine(""+i.nombre);
+  }
+  IEnumerable <persona> per= from p in Listapersonas join banco in ListaBancos on p.id equals banco.id where banco.nombre == "Nacion" select p;
+
+Console.WriteLine("Usuarios banco Nacion");
+foreach(persona i in per){
+    Console.WriteLine(""+i.nombre);
+  }
+
+var miembros = from p in Listapersonas join banco in ListaBancos on p.id equals banco.id where banco.nombre == "Nacion" select new {nombre=p.nombre, banco=banco.nombre};
+Console.WriteLine(" Nombre y banco");
+ foreach(var i in miembros){
+    Console.WriteLine(""+ i.nombre + i.banco);
+ }
+
+
+ public class persona{
+       public string nombre; 
+    public int edad;
+    public int id;
+
+
+   public persona(string nombre,int edad,int id){
+    this.nombre=nombre;
+    this.edad=edad;
+    this.id=id;
+   }
+
+ 
+ }
+
+ public class banco{
+    public string nombre;
+    public int id;
+    public banco(string nombre, int id){
+        this.nombre=nombre;
+        this.id=id;
+    }
+ }
